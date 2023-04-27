@@ -1,0 +1,217 @@
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <title>User Information Form</title>
+    <style>
+      body {
+        background-color: #f2f2f2;
+        font-family: Arial, sans-serif;
+      }
+      form {
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        margin: 20px auto;
+        padding: 20px;
+        max-width: 500px;
+      }
+      input[type="submit"] {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        cursor: pointer;
+        padding: 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 5px;
+        margin-top: 20px;
+        width: 100%;
+        max-width: 200px;
+      }
+      input[type="submit"]:hover {
+        background-color: #3e8e41;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      input[type="text"], input[type="number"] {
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        padding: 5px;
+        width: 100%;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <textarea id="input-text" rows="5" cols = "50"></textarea>
+    </div>
+    <!-- <form id="user-form" action="" method="post">
+      <label for="purpose">운동목적:</label>
+      <input type="text" name="purpose" id="purpose" required>
+
+      <label for="weight">체중 (kg):</label>
+      <input type="number" name="weight" id="weight" step="0.1" required>
+
+      <label for="height">키 (cm):</label>
+      <input type="number" name="height" id="height" step="0.1" required>
+
+      <label for="muscle_mass">골격근량 (kg):</label>
+      <input type="number" name="muscle_mass" id="muscle_mass" step="0.1" required>
+
+      <label for="body_fat">체지방량 (kg):</label>
+      <input type="number" name="body_fat" id="body_fat" step="0.1" required>
+
+      <label for="age">나이:</label>
+      <input type="number" name="age" id="age" required>
+
+      <label for="gender">성별:</label>
+      <select name="gender" id="gender" required>
+        <option value="">-- 선택 --</option>
+        <option value="male">남성</option>
+        <option value="female">여성</option>
+      </select>
+
+      <label for="bmi">BMI:</label>
+      <input type="number" name="bmi" id="input-text" step="0.1" required>
+
+      <label for="body_fat_percentage">체지방률 (%):</label>
+      <input type="number" name="body_fat_percentage" id="body_fat_percentage" step="0.1" required>
+
+      <label for="right_arm_muscle_mass">오른팔 근육 량 (kg):</label>
+  <input type="number" name="right_arm_muscle_mass" id="right_arm_muscle_mass" step="0.1" required>
+
+    <label for="left_arm_muscle_mass">왼팔 근육량 (kg):</label>
+    <input type="number" name="left_arm_muscle_mass" id="left_arm_muscle_mass" step="0.1" required>
+
+    <label for="trunk_muscle_mass">몸통 근육량 (kg):</label>
+    <input type="number" name="trunk_muscle_mass" id="trunk_muscle_mass" step="0.1" required>
+
+    <label for="right_leg_muscle_mass">오른다리 근육량 (kg):</label>
+    <input type="number" name="right_leg_muscle_mass" id="right_leg_muscle_mass" step="0.1" required>
+
+    <label for="left_leg_muscle_mass">왼다리 근육량 (kg):</label>
+    <input type="number" name="left_leg_muscle_mass" id="left_leg_muscle_mass" step="0.1" required>
+
+    <label for="time">운동 시간:</label>
+    <input type="text" name="time" id="time" required>
+      -->
+  <div>
+  <button onclick="showOutput()">사용자 정보 보내기</button>
+  </div>
+
+  <div id="output-text"></div>
+  <script>
+    const chatGPT = async (messages, parameters = {}) => {
+        const apikey = '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';
+        if (messages[0].constructor === String) return await chatGPT([['user', messages[0]]]);
+        messages = messages.map(line => ({ role: line[0], content: line[1].trim() }))
+        console.log(1)
+        const response = await fetch('https://api.openai.com/v1/chat/completions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apikey}` },
+          body: JSON.stringify({ model: 'gpt-3.5-turbo', messages, ...parameters }),
+        });
+        const data = await response.json();
+        if (data?.error?.message) throw new Error(data.error.message);
+        return data.choices[0].message.content.trim();
+      };
+    const form = document.getElementById("user-form");
+      const userInfo = document.getElementById("user-info");
+
+      form.addEventListener("submit", (event) => {
+          event.preventDefault();
+
+          const formData = new FormData(form);
+          const userData = Object.fromEntries(formData.entries());
+
+          // userInfo.innerHTML = `
+          // <form>
+          // <h2>User Information:</h2>
+          // <table>
+          //   <tr>
+          //     <th>Name:</th>
+          //     <td>${userData.purpose}</td>
+          //   </tr>
+          //   <tr>
+          //     <th>Age:</th>
+          //     <td>${userData.weight}</td>
+          //   </tr>
+          //   <tr>
+          //     <th>Gender:</th>
+          //     <td>${userData.muscle_mass}</td>
+          //   </tr>
+          //   <tr>
+          //     <th>Email:</th>
+          //     <td>${userData.body_fat}</td>
+          //   </tr>
+          //   <tr>
+          //     <th>Phone Number:</th>
+          //     <td>${userData.age}</td>
+          //   </tr>
+
+          //   <tr>
+          //     <th>Name:</th>
+          //     <td>${userData.gender}</td>
+          //   </tr>
+          //   <tr>
+          //     <th>Age:</th>
+          //     <td>${userData.bmi}</td>
+          //   </tr>
+          //   <tr>
+          //     <th>Gender:</th>
+          //     <td>${userData.body_fat_percentage}</td>
+          //   </tr>
+          //   <tr>
+          //     <th>Email:</th>
+          //     <td>${userData.right_arm_muscle_mass}</td>
+          //   </tr>
+          //   <tr>
+          //     <th>Phone Number:</th>
+          //     <td>${userData.left_arm_muscle_mass}</td>
+          //   </tr>
+
+
+          //     <tr>
+          //     <th>Name:</th>
+          //     <td>${userData.trunk_muscle_mass}</td>
+          //   </tr>
+          //   <tr>
+          //     <th>Age:</th>
+          //     <td>${userData.right_leg_muscle_mass}</td>
+          //   </tr>
+          //   <tr>
+          //     <th>Gender:</th>
+          //     <td>${userData.left_leg_muscle_mass}</td>
+          //   </tr>
+          //   <tr>
+          //     <th>Email:</th>
+          //     <td>${userData.time}</td>
+          //   </tr>
+          // </table>
+          // <button onclick="clearForm()">Clear Form</button>
+          // </form>
+          // `;
+        });
+        async function showOutput() {
+            var inputText = document.getElementById("input-text").value;
+            const response = await chatGPT([
+              ['user', inputText],
+              ['assistant', inputText]
+            ],{temperature: 0.3});
+          
+            var outputText = document.getElementById("output-text");
+            outputText.innerText = response[0].text;
+          }
+  // 여기 운동 추천 해준거 띄울것.
+
+  </script>
+
+  </body>
+  </html>

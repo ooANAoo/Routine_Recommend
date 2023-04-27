@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>체형분석기</title>
+  </head>
+  <body>
+    <h1>체형분석기</h1>
+    <form action="/Routine" method="POST">
+      <label for="purpose">운동목적: </label>
+      <select name="purpose" required>
+      <option value="">선택하세요</option>
+      <option value="다이어트">다이어트</option>
+      <option value="근비대">근비대</option>
+      <option value="건강">건강</option>
+    </select><br>
+    <label for="monday">월요일:</label>
+<input type="checkbox" id="monday" name="monday">
+<label for="monday-start-time">시작 시간:</label>
+<input type="time" id="monday-start-time" name="monday-start-time">
+<label for="monday-end-time">종료 시간:</label>
+<input type="time" id="monday-end-time" name="monday-end-time">
+<br>
+
+<label for="tuesday">화요일:</label>
+<input type="checkbox" id="tuesday" name="tuesday">
+<label for="tuesday-start-time">시작 시간:</label>
+<input type="time" id="tuesday-start-time" name="tuesday-start-time">
+<label for="tuesday-end-time">종료 시간:</label>
+<input type="time" id="tuesday-end-time" name="tuesday-end-time">
+<br>
+
+<label for="wednesday">수요일:</label>
+<input type="checkbox" id="wednesday" name="wednesday">
+<label for="wednesday-start-time">시작 시간:</label>
+<input type="time" id="wednesday-start-time" name="wednesday-start-time">
+<label for="wednesday-end-time">종료 시간:</label>
+<input type="time" id="wednesday-end-time" name="wednesday-end-time">
+<br>
+
+<label for="thursday">목요일:</label>
+<input type="checkbox" id="thursday" name="thursday">
+<label for="thursday-start-time">시작 시간:</label>
+<input type="time" id="thursday-start-time" name="thursday-start-time">
+<label for="thursday-end-time">종료 시간:</label>
+<input type="time" id="thursday-end-time" name="thursday-end-time">
+<br>
+
+<label for="friday">금요일:</label>
+<input type="checkbox" id="friday" name="friday">
+<label for="friday-start-time">시작 시간:</label>
+<input type="time" id="friday-start-time" name="friday-start-time">
+<label for="friday-end-time">종료 시간:</label>
+<input type="time" id="friday-end-time" name="friday-end-time">
+<br>
+
+<label for="saturday">토요일:</label>
+<input type="checkbox" id="saturday" name="saturday">
+<label for="saturday-start-time">시작 시간:</label>
+<input type="time" id="saturday-start-time" name="saturday-start-time">
+<label for="saturday-end-time">종료 시간:</label>
+<input type="time" id="saturday-end-time" name="saturday-end-time">
+<br>
+
+<label for="sunday">일요일:</label>
+<input type="checkbox" id="sunday" name="sunday">
+<label for="sunday-start-time">시작 시간:</label>
+<input type="time" id="sunday-start-time" name="sunday-start-time">
+<label for="sunday-end-time"> 종료 시간:</label>
+<input type="time" id="sunday-end-time" name="sunday-end-time">
+<br>
+
+      <label for="weight">체중(kg): </label>
+      <input type="number" step="0.1" name="weight" required><br>
+      <label for="height">키(cm): </label>
+      <input type="number" step="0.1" name="height" required><br>
+      <label for="body_fat_mass">체지방량(kg): </label>
+      <input type="number" step="0.1" name="body_fat_mass" required><br>
+      <label for="bone_mass">골격근량(kg): </label>
+      <input type="number" step="0.1" name="bone_mass" required>
+      <label for="right_arm_muscle_mass">오른팔 근육량(kg): </label>
+      <input type="number" step="0.01" name="right_arm_muscle_mass" required><br>
+      <label for="left_arm_muscle_mass">왼팔 근육량(kg): </label>
+      <input type="number" step="0.01" name="left_arm_muscle_mass" required><br>
+      <label for="right_leg_muscle_mass">오른쪽 다리 근육량(kg): </label>
+      <input type="number" step="0.01" name="right_leg_muscle_mass" required><br>
+      <label for="left_leg_muscle_mass">왼쪽 다리 근육량(kg): </label>
+      <input type="number" step="0.01" name="left_leg_muscle_mass" required><br>
+      <label for="trunk_muscle_mass">몸통 근육량(kg): </label>
+      <input type="number" step="0.1" name="trunk_muscle_mass" required><br>
+      <label for="age">나이: </label>
+      <input type="number" name="age" required><br>
+      <label for="gender">성별: </label>
+      <select name="gender" required>
+        <option value="남성">남성</option>
+        <option value="여성">여성</option>
+      </select><br>
+      <input type="submit" value="분석">
+    </form>
+
+    {% if body_type %}
+      <h2>체형 결과</h2>
+      <p>당신의 체형은 {{ body_type }}입니다.</p>
+    {% endif %}
+
+    {% if muscle_development_type %}
+      <h2>근육 발달 형태</h2>
+      <p>당신의 근육 발달 형태는 {{ muscle_development_type }}입니다.</p>
+    {% endif %}
+  </body>
+</html>

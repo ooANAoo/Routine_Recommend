@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Body Analysis Result</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+	<div class="container">
+		<h1>Body Analysis Result</h1>
+		<div class="result">
+			<p>Your body type is {{ body_type }}.</p>
+			<p>Your muscle development type is {{ muscle_development_type }}.</p>
+		</div>
+	</div>
+</body>
+</html>
